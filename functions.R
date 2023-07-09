@@ -517,6 +517,10 @@ percent_in_ex <- function(list_of_dfs){
   return(out)
 }
 
+#Need to build a function to compare prediction error
+prediction_error_func <- function(){}
+	
+
 #x4 <- bind_draws(fit1, fit2, fit3, along = "draw")
 # y_gen_draws <- list()
 # #select the draws regarding the gamma variables
