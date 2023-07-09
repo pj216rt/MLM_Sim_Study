@@ -17,23 +17,21 @@ priors <- c("uninform", "ridge", "studentst", "lasso") #List the priors to check
 cond <- 1:num_con
 #Create grid to search
 sim_conditions <- expand.grid(prior = priors, condition=cond)
-sim_conditions$prior<- as.character(sim_conditions$prior) #TO help with some of the output, not treat it as a factor anymore
-
-#test <- simulate_study(pos=1, cond = sim_conditions)
-#test <- apply(1:nrow(sim_conditions), function(x) simulate_study(pos = x, cond = sim_conditions))
-
-if(.Platform$OS.type == "unix") {
-  cl = makeCluster(numcores, type = "FORK")
-} else {
-  cl <- makeCluster(numcores, type = "PSOCK")
-  # If you're using libraries in each node, you can call this.
-}
+sim_conditions$prior<- as.character(sim_conditions$prior) #To help with some of the output, not treat it as a factor anymore
 
 #SIM
+#Because we are on a Windows machine for now, we need to use the socket method
+#of paralleization.  This launches a new version of R on each core being used.  
 nworkers <- detectCores() # number of cores to use
 cl <- makePSOCKcluster(nworkers) # create cluster
-clusterCall(cl, function() library(cmdstanr))
-clusterCall(cl, function() library(bayesplot))
-clusterCall(cl, function() { source("Dat_gen.R") })
+# clusterCall(cl, function() library(cmdstanr))
+# clusterCall(cl, function() library(bayesplot))
+# clusterCall(cl, function() { source("Dat_gen.R") })
+clusterEvalQ(cl, {
+  library(cmdstanr)
+  library(bayesplot)
+  library(posterior)
+  })
+clusterExport(cl, list("out", "out1", "out2", "out3", "out4", "out5"), envir = environment())
 simulation <- clusterApplyLB(cl, 1:nrow(sim_conditions), simulate_study, cond=sim_conditions) # run simulation
 stopCluster(cl) # shut down the nodes
