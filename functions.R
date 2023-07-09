@@ -517,6 +517,19 @@ percent_in_ex <- function(list_of_dfs){
   return(out)
 }
 
+
+names(ah4) <- names
+for (i in seq_along(ah4)){
+
+  print(names(temp))
+  for (j in seq_along(temp)){
+    
+    print(length(temp1))
+    names(temp1) <- names1
+    print(names(temp1))
+  }
+}
+
 #Need to build a function to compare prediction error
 prediction_error_func <- function(){}
 	

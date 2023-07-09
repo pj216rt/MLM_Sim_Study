@@ -23,22 +23,7 @@ ah4 <- lapply(ah3, percent_in_ex)
 names <- apply(sim_conditions, MARGIN = 1, function(x) paste0(x[1], " condition:", x[2]))
 names(ah4) <- names 
 
-#name the inside lists to match the data generation conditions
-names1 <- apply(conditions, MARGIN = 1, function(x) paste0("n: ", x[1], " r: ", x[2], " SE: ", x[3]))
-names1
 
-for (i in seq_along(ah4)){
-  temp <- ah4[i]
-  print(names(temp))
-  for (j in seq_along(temp)){
-    temp1 <- temp[[j]]
-    print(length(temp1))
-    names(temp1) <- names1
-    print(names(temp1))
-  }
-}
-
-  
 #Plotting probability of inclusion.
 p <- ggplot(df, aes(x=X1, y=value, color = X2)) + geom_point() +
   guides(color = guide_legend(title = "Title")) + 
