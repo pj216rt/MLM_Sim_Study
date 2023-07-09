@@ -19,4 +19,12 @@ Erp provided.  In other cases, I had to tweak the format due to the fact that
 van Erp used vectors of predictors and we have a matrix.  
 
 I have questions about how to best impliment the Group Lasso prior.  Without
-any strict grouping design, this prior simply becomes the regular lasso. 
+any strict grouping design, this prior simply becomes the regular lasso.
+
+Attempts to compile the uniform discrete normal mixture prior have resulted in
+an odd error message: ***INSERT THE EXACT MESSAGE HERE***
+
+I also have concerns about the generated quantities block in the stan files.
+I am afraid that we are not taking into account the multivariate normal
+distribution when we utilize the random number generator.  Should we include
+this?
