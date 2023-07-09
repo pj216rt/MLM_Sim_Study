@@ -28,3 +28,19 @@ I also have concerns about the generated quantities block in the stan files.
 I am afraid that we are not taking into account the multivariate normal
 distribution when we utilize the random number generator.  Should we include
 this?
+
+7/8/2023
+I just started this weekend by working on implimenting an efficiency change
+that I discovered over the 4th of July break into the other STAN files.  In
+short, by utilizing Cholensky factorization, I am able to keep the number of
+divergent transitions to below 1.0% of all transitions.  This isn't perfect,
+but it allows for a higher effective sample size in the STAN sampling.
+
+As of 10pm tonight, I have tweaked the ridge prior, the students t prior, the
+lasso prior and the horseshoe prior.
+
+7/7/2023
+I drove back from NC today, so I did not do much in terms of the project.  I
+did however, get Github to work finally.  This means that there should be a
+huge rush of changes to the files as I add, commit, and push the main working
+files.
