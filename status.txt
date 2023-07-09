@@ -1,0 +1,22 @@
+7/9/2023
+This weekend, I spent a good deal of time getting the stan files updated.
+There were 11 stan files that we are looking at: 
+
+1.) uninformative prior
+2.) Ridge prior
+3.) Local Students t prior
+4.) LASSO prior
+5.) Elastic net prior
+6.) Group LASSO prior
+7.) Hyper-LASSO prior
+8.) Horseshoe prior
+9.) Regularized horseshoe prior
+10.) Bernoulli discrete normal mixture prior
+11.) Uniform discrete normal mixture prior
+
+For some of these, the procedure was as simple as modifying the code that van
+Erp provided.  In other cases, I had to tweak the format due to the fact that
+van Erp used vectors of predictors and we have a matrix.  
+
+I have questions about how to best impliment the Group Lasso prior.  Without
+any strict grouping design, this prior simply becomes the regular lasso. 
