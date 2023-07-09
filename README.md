@@ -11,4 +11,5 @@ STAN development team.
 
 A large part of our work involves evaluating different priors in our models.  To that end, we consider multiple 
 different priors including but not limited to ridge, LASSO, horseshoe, elastic net, and discrete normal mixtures.
- 
+
+The data generation files in several steps.  First, you input the different conditions that you wish to consider.  As we are working with longitudinal data, this can include sample size, correlation of the level 1 coefficients, and the standard error.  By varying the standard error of the model, we can in a sense control for the signal to noise ratio.  A grid is then constructed with these various conditions.  Next, we iterate over this grid for various different coefficient scenarios.  We intend for these scenarios to explore different cases of sparsity.  In this way if we have x different scenarios, any y different conditions, we end up with x objects, comprising of y length lists of generated data. 
