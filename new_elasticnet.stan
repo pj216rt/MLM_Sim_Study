@@ -23,20 +23,27 @@ data {
 parameters {
   vector [L] beta_p [N_pts_train];
   vector<lower=0>[L] tau;      // prior scale
-  matrix[K,L] gamma_raw; //regression parameters (level 2)
+  //matrix[K,L] gamma_raw; //regression parameters (level 2)
+  vector[K*L] gamma_raw;
   cholesky_factor_corr[L] Lcorr; // cholesky factor (L_u matrix for R)
   real<lower=0> sigma2; // population variance
   
   //penalty parameter lambda
-  matrix<lower=1>[K, L] tau2;
+  vector<lower=1>[K*L] tau2;
 	real<lower=0> lambda1;
 	real<lower=0> lambda2;
 }
 
 //We need to work on this
 transformed parameters {
+  //matrix[K,L] gamma;
+  vector [K*L] gamma_vec;
+  for(j in 1:K*L){
+    gamma_vec[j] = sqrt(((sigma2*(tau2[j]-1))/(lambda2*tau2[j]))) * gamma_raw[j];
+  }
+  
   matrix[K,L] gamma;
-  gamma = sqrt(((sigma2*(tau2-1))/(lambda2*tau2))) * gamma_raw;
+  gamma = to_matrix(gamma_vec, K, L);
   
   matrix [N_pts_train, L] beta;
   beta = x2_train*gamma;
@@ -63,7 +70,7 @@ transformed parameters {
 
 model {
   to_vector(gamma_raw) ~ normal(0, 1); //implies beta ~ normal(0, sqrt(1/(lambda2/sigma2 * (tau[j]/(tau[j]-1)))))
-  to_vector(tau2) ~ gamma(0.5, (8*lambda2*sigma2)/(lambda1^2));
+  tau2 ~ gamma(0.5, (8*lambda2*sigma2)/(lambda1^2));
 	lambda1 ~ cauchy(0, 1);
 	lambda2 ~ cauchy(0, 1);
   
