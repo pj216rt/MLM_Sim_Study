@@ -44,3 +44,22 @@ I drove back from NC today, so I did not do much in terms of the project.  I
 did however, get Github to work finally.  This means that there should be a
 huge rush of changes to the files as I add, commit, and push the main working
 files.
+
+7/6/2023
+After spending a few days celebrating the 4th, I am confident that I am on a
+"final approach" for this simulation design.  There will be four main .R
+files.  These will be composed as follows:
+
+1.) function respository.  This will hold the functions.  This will also end up being the
+largest file.
+2.) Data generation function.  This file will generate the data.  Right now,
+we are thinking of having ultimately 6 different configurations of "true"
+coefficients.  For each configuration, we want to be able to conduct a grid
+search over various values of sample size, correlation, and standard error.
+By varrying the standard error, we can control in part the SNR.  For each step
+along the grid, we will generate a large number of datasets. 
+3.) Simulation file.  This file is going to be relatively short, but will
+consume the most memory.  In this file, we will run the simulation in parallel
+to save time. 
+4.) Data Analysis.  This file will analyze the simulated data from the
+simulation file.  
