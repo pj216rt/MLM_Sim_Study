@@ -440,21 +440,6 @@ gamma_study <- function(list_of_complete_draws){
   return(gamma_draws)
 }
 
-#Do the same with the y generated 
-y_gen_study <- function(list_of_complete_draws){
-  y_gen_draws <- list()
-  for(i in seq_along(list_of_complete_draws)){
-    temp <- list_of_complete_draws[[i]]
-    y_d <- list()
-    for(j in seq_along(temp)){
-      temp1 <- subset_draws(temp[[j]], variable = "y_new")
-      y_d[[j]] <- temp1
-    }
-    y_gen_draws[[i]] <- y_d
-  }
-  return(y_gen_draws)
-}
-
 #Function to get point estimate of gamma draws
 gamma_point_estimates <- function(list_of_gamma_draws){
   point_list <- list()
@@ -468,6 +453,26 @@ gamma_point_estimates <- function(list_of_gamma_draws){
     point_list[[i]] <- pe_d
   }
   return(point_list)
+}
+
+#Do the same with the y generated 
+y_gen_study <- function(list_of_complete_draws){
+  y_gen_draws <- list()
+  for(i in seq_along(list_of_complete_draws)){
+    temp <- list_of_complete_draws[[i]]
+    y_d <- list()
+    for(j in seq_along(temp)){
+      temp1 <- subset_draws(temp[[j]], variable = "y_new") #Select only y_new variables
+      y_d[[j]] <- temp1
+    }
+    y_gen_draws[[i]] <- y_d
+  }
+  return(y_gen_draws)
+}
+
+#Need point estimates of the y generated draws
+y_gen_point_estimates <- function(list_generated_draws){
+  
 }
 
 #Get upper and lower bounds on CI based on an 80% CI
@@ -549,6 +554,9 @@ percent_in_ex <- function(list_of_dfs){
 prediction_error_func <- function(gen_data, test_data){
   rmse_vals <- list()
   for(i in seq_along(gen_data)){
+    #access the same generated/test data for each condition
+    temp <- gen_data[[i]]
+    temp1 <- test_data[[i]]
     print(i)
   }
 }
