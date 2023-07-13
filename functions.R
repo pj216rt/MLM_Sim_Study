@@ -455,6 +455,21 @@ y_gen_study <- function(list_of_complete_draws){
   return(y_gen_draws)
 }
 
+#Function to get point estimate of gamma draws
+gamma_point_estimates <- function(list_of_gamma_draws){
+  point_list <- list()
+  for(i in seq_along(list_of_gamma_draws)){
+    temp <- list_of_gamma_draws[[i]]
+    pe_d <- list()
+    for(j in seq_along(list_of_gamma_draws)){
+      temp1 <- summarise_draws(temp[[j]], "mean", "median") #get both the mean and median
+      pe_d[[j]] <- temp1
+    }
+    point_list[[i]] <- pe_d
+  }
+  return(point_list)
+}
+
 #Get upper and lower bounds on CI based on an 80% CI
 gamm_interval_construct <- function(list_of_gamma_draws){
   confidence_int <- list()
@@ -517,18 +532,18 @@ percent_in_ex <- function(list_of_dfs){
   return(out)
 }
 
-
-names(ah4) <- names
-for (i in seq_along(ah4)){
-
-  print(names(temp))
-  for (j in seq_along(temp)){
-    
-    print(length(temp1))
-    names(temp1) <- names1
-    print(names(temp1))
-  }
-}
+# 
+# names(ah4) <- names
+# for (i in seq_along(ah4)){
+# 
+#   print(names(temp))
+#   for (j in seq_along(temp)){
+#     
+#     print(length(temp1))
+#     names(temp1) <- names1
+#     print(names(temp1))
+#   }
+# }
 
 #Need to build a function to compare prediction error
 prediction_error_func <- function(){}
