@@ -568,6 +568,23 @@ prediction_error_func <- function(gen_data, test_data, moc_to_use = "mean"){
     #access the same generated/test data for each condition
     temp <- gen_data[[i]]
     temp1 <- test_data[[i]]
-    print(i)
+    #print(i)
+    testing <- list()
+    # for(j in seq_along(temp1)){
+    #   print(j)
+    #   generated_dat <- temp[[j]]
+    #   if(moc_to_use == "mean"){
+    #     actdat <- temp1[[j]]$mean
+    #   }
+    #   else{
+    #     actdat <- temp1[[j]]$median
+    #   }
+    #   print(generated_dat)
+    #   val <- sqrt(mean((actdat - generated_dat)^2)) #Compute RMSE
+    #   testing[[length(testing)+1]] <- val #Store RMSE value in list
+    # }
+    # rmse_vals[[length(rmse_vals)+1]] <- testing
   }
+  #return(rmse_vals)
 }
+#We don't have the testing y values here
