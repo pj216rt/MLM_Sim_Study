@@ -472,7 +472,17 @@ y_gen_study <- function(list_of_complete_draws){
 
 #Need point estimates of the y generated draws
 y_gen_point_estimates <- function(list_generated_draws){
-  
+  point_list <- list()
+  for(i in seq_along(list_generated_draws)){
+    temp <- list_generated_draws[[i]]
+    pe_d <- list()
+    for(j in seq_along(list_generated_draws)){
+      temp1 <- summarise_draws(temp[[j]], "mean", "median") #get both the mean and median
+      pe_d[[j]] <- temp1
+    }
+    point_list[[i]] <- pe_d
+  }
+  return(point_list)
 }
 
 #Get upper and lower bounds on CI based on an 80% CI
@@ -551,7 +561,8 @@ percent_in_ex <- function(list_of_dfs){
 # }
 
 #Need to build a function to compare prediction error
-prediction_error_func <- function(gen_data, test_data){
+#Include option to use the mean or the median for calculations
+prediction_error_func <- function(gen_data, test_data, moc_to_use = "mean"){
   rmse_vals <- list()
   for(i in seq_along(gen_data)){
     #access the same generated/test data for each condition
