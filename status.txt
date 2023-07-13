@@ -4,7 +4,15 @@ with loading libraries, but I want to see how in depth the issue is.
 
 To start, we can add files to the HPC with the following command: "cp
 /tmp/test.txt USERNAME@export.rcc.fsu.edu:~".  The colon and squiggle are
-needed.  Trust me.
+needed.  Trust me.  We can run R files by calling "Rscript file_name.R". 
+
+I have been able to install cmdstanr and run the example simulation.  The
+issue I believe is when you install R/R Studio on a local machine, you are
+actually installing a host of packages by default.  I don't belive that the
+HPC has that feature.  This means that we need to install every package that
+we need from the start. 
+
+Made a folder on my HPC account for the R and STAN files that we have to go.  
 
 7/9/2023
 This weekend, I spent a good deal of time getting the stan files updated.
