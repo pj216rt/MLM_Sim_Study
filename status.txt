@@ -1,6 +1,10 @@
 7/13/2023
 Today I focused on getting R code to run on the HPC.  The issue seems to be
-with loading libraries, but I want to see how in depth the issue is.  
+with loading libraries, but I want to see how in depth the issue is. 
+
+To start, we can add files to the HPC with the following command: "cp
+/tmp/test.txt USERNAME@export.rcc.fsu.edu:~".  The colon and squiggle are
+needed.  Trust me.
 
 7/9/2023
 This weekend, I spent a good deal of time getting the stan files updated.
