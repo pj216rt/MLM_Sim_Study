@@ -546,14 +546,9 @@ percent_in_ex <- function(list_of_dfs){
 # }
 
 #Need to build a function to compare prediction error
-prediction_error_func <- function(){}
-	
-
-#x4 <- bind_draws(fit1, fit2, fit3, along = "draw")
-# y_gen_draws <- list()
-# #select the draws regarding the gamma variables
-# gam_draws <- 
-# gamma_draws[[i]] <- gam_draws
-# #Select the draws regarding the y_generated data
-# y_test_draws <- subset_draws(draws_temp, variable = "y_new")
-# y_gen_draws[[i]] <- y_test_draws
+prediction_error_func <- function(gen_data, test_data){
+  rmse_vals <- list()
+  for(i in seq_along(gen_data)){
+    print(i)
+  }
+}
