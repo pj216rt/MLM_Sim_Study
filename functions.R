@@ -9,7 +9,7 @@ require(rstan)
 require(dplyr)
 require(tidyverse)
 require(lme4)
-require(brms)
+#require(brms)
 
 genData <- function(nSubjs = 100, sdErr = 1, 
                     # intercept and slope fixed effects
