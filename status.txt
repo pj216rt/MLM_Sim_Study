@@ -12,7 +12,20 @@ actually installing a host of packages by default.  I don't belive that the
 HPC has that feature.  This means that we need to install every package that
 we need from the start. 
 
-Made a folder on my HPC account for the R and STAN files that we have to go.  
+Made a folder on my HPC account for the R and STAN files that we have to go.
+
+During work on the RMSE portion of code today, I noticed that I need to undo a
+step in the data generation file.  As of right now, data for each condition is
+generated, then one function standardizes and prepares the data for STAN
+sampling.  One of the steps in preparation involves splitting each dataset
+into a test and train set.  The list of data fed into STAN does not have the y
+or output variables from each test split, because they are not needed.
+However, they are needed for calculation of RMSE. 
+
+This means that we need to create a "port" in the data preparation step that
+provides us with the y values from each test set.  This shouldn't be a big
+deal and I will work on this tomorrow.  We already have the function to do
+this, it is just that it and other functions are combined.     
 
 7/9/2023
 This weekend, I spent a good deal of time getting the stan files updated.
