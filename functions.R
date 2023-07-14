@@ -620,4 +620,14 @@ prediction_error_func <- function(gen_data, test_data, moc_to_use = "mean"){
   }
   return(rmse_vals)
 }
-##$splitdat[[1]]$Testing[[1]]$Y
+
+#RMSE values are returned as a list.  We need to unlist these
+rmse_unlist <- function(rmse_list){
+  out <- list()
+  for(i in seq_along(rmse_list)){
+    temp1 <- rmse_list[[i]]
+    temp2 <- unlist(temp1)
+    out[[i]] <- temp2
+  }
+  return(out)
+}
