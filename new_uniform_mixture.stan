@@ -64,7 +64,7 @@ model {
  						  log(1-charlie[j]) + normal_lpdf(gamma_vec[j] | 0, sqrt(tau2[j])));
   }
   tau2 ~ inv_gamma(0.5, 0.5);
-  charlie ~ uniform(0, 1);
+  //charlie ~ uniform(0, 1);
   
   Lcorr ~ lkj_corr_cholesky(2.0); // prior for cholesky factor of a correlation matrix
   tau ~ inv_gamma(1,7);
