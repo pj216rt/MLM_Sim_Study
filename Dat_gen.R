@@ -6,7 +6,7 @@ set.seed(12345)
 #Generating data for the study
 #Conditions to simulate
 
-num_datasets <- 4
+num_datasets <- 1
 sample_size <- c(50, 100)
 corr_sizes <- c(0.0)
 stand_error <- c(5)
@@ -34,7 +34,9 @@ test <- apply(conditions, MARGIN = 1,
                                                                        c(int2 = 0.0, slope2 = 0.0))))
 
 #Getting Data Ready for Stan Compilation
-out <- ready_dat(test)
+#out <- ready_dat(test)
+out <- ready_dat1(test)
+
 #Plotting Data
 xyplot(Y ~ time, data = test[[1]][[1]], type = "b", groups = id, 
        xlab="Time",
@@ -63,7 +65,7 @@ test1 <- apply(conditions, MARGIN = 1,
                                                                        c(int2 = 0.0, slope2 = 5.0),
                                                                        c(int2 = 2.0, slope2 = 2.0))))
 #Getting Data Ready for Stan Compilation
-out1 <- ready_dat(test1)
+out1 <- ready_dat1(test1)
 #Plotting Data
 xyplot(Y ~ time, data = test1[[1]][[1]], type = "b", groups = id, 
        xlab="Time",
@@ -90,7 +92,7 @@ test2 <- apply(conditions, MARGIN = 1,
                                                                        c(int2 = 0.0, slope2 = 0.0))))
 
 #Getting Data Ready for Stan Compilation
-out2 <- ready_dat(test2)
+out2 <- ready_dat1(test2)
 #Plotting Data
 xyplot(Y ~ time, data = test2[[1]][[1]], type = "b", groups = id, 
        xlab="Time",
@@ -123,7 +125,7 @@ test3 <- apply(conditions, MARGIN = 1,
                                                                            c(int2 = 2.0, slope2 = 2.0)),3)))
 
 #Getting Data Ready for Stan Compilation
-out3 <- ready_dat(test3)
+out3 <- ready_dat1(test3)
 #Plotting Data
 xyplot(Y ~ time, data = test3[[1]][[1]], type = "b", groups = id, 
        xlab="Time",
@@ -150,7 +152,7 @@ test4 <- apply(conditions, MARGIN = 1,
                                                                             c(int2 = 0.0, slope2 = 0.0)),3)))
 
 #Getting Data Ready for Stan Compilation
-out4 <- ready_dat(test4)
+out4 <- ready_dat1(test4)
 #Plotting Data
 xyplot(Y ~ time, data = test4[[1]][[1]], type = "b", groups = id, 
        xlab="Time",
@@ -186,7 +188,7 @@ test5 <- apply(conditions, MARGIN = 1,
                                                                             c(int2 = 2.0, slope2 = 2.0)),20)))
 
 #Getting Data Ready for Stan Compilation
-out5 <- ready_dat(test5)
+out5 <- ready_dat1(test5)
 #Plotting Data
 xyplot(Y ~ time, data = test5[[1]][[1]], type = "b", groups = id, 
        xlab="Time",
