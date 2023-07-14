@@ -355,6 +355,31 @@ ready_dat <- function(sim_dat){
   return(split.dat)
 }
 
+#Trying to see if we can simply return a list with both the split and the stan data
+
+ready_dat1 <- function(sim_dat){
+  #Scaling
+  temp <- scale_cont_data(sim_dat)
+  
+  #Splitting
+  split.sim1 <- list()
+  for(i in seq_along(temp)){
+    temp1 <- temp[[i]]
+    temp2 <- tt_split(datasets = temp1, percent_train = 0.80)
+    split.sim1[[i]] <- temp2
+  }
+  #Constructing
+  split.dat <- list()
+  for(i in seq_along(split.sim1)){
+    temp <- split.sim1[[i]]
+    temp <- stan_data_loop(training_datasets = temp$Training, testing_datasets = temp$Testing)
+    split.dat[[i]] <- temp
+  }
+  results <- setNames(list(split.sim1, split.dat), c('splitdat', 'standat'))
+  return(results)
+}
+
+
 #function to extract all of the STAN output
 stan_out <- function(stan_data_collection, stan_file = "pred_error_uninform.stan", iterations = 3000,
                      chains_to_run = 4){
