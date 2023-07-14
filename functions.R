@@ -472,7 +472,7 @@ gamma_point_estimates <- function(list_of_gamma_draws){
   for(i in seq_along(list_of_gamma_draws)){
     temp <- list_of_gamma_draws[[i]]
     pe_d <- list()
-    for(j in seq_along(list_of_gamma_draws)){
+    for(j in seq_along(temp)){
       temp1 <- summarise_draws(temp[[j]], "mean", "median") #get both the mean and median
       pe_d[[j]] <- temp1
     }
@@ -502,7 +502,7 @@ y_gen_point_estimates <- function(list_generated_draws){
   for(i in seq_along(list_generated_draws)){
     temp <- list_generated_draws[[i]]
     pe_d <- list()
-    for(j in seq_along(list_generated_draws)){
+    for(j in seq_along(temp)){
       temp1 <- summarise_draws(temp[[j]], "mean", "median") #get both the mean and median
       pe_d[[j]] <- temp1
     }
@@ -593,12 +593,19 @@ prediction_error_func <- function(gen_data, test_data, moc_to_use = "mean"){
   for(i in seq_along(gen_data)){
     #access the same generated/test data for each condition
     temp <- gen_data[[i]]
-    temp1 <- test_data[[i]]
+    temp1 <- test_data$splitdat[[i]]
     #print(i)
     testing <- list()
-    # for(j in seq_along(temp1)){
-    #   print(j)
-    #   generated_dat <- temp[[j]]
+    for(j in seq_along(temp)){
+      print(j)
+      actdat <- temp1$Testing[[j]]$Y
+      if(moc_to_use == "mean"){
+        generated_dat <- temp[[j]]$mean
+      }
+      else{
+        generated_dat <- temp[[j]]$median
+      }
+      print(generated_dat)
     #   if(moc_to_use == "mean"){
     #     actdat <- temp1[[j]]$mean
     #   }
@@ -606,11 +613,11 @@ prediction_error_func <- function(gen_data, test_data, moc_to_use = "mean"){
     #     actdat <- temp1[[j]]$median
     #   }
     #   print(generated_dat)
-    #   val <- sqrt(mean((actdat - generated_dat)^2)) #Compute RMSE
-    #   testing[[length(testing)+1]] <- val #Store RMSE value in list
-    # }
-    # rmse_vals[[length(rmse_vals)+1]] <- testing
+      val <- sqrt(mean((actdat - generated_dat)^2)) #Compute RMSE
+      testing[[length(testing)+1]] <- val #Store RMSE value in list
+    }
+    rmse_vals[[length(rmse_vals)+1]] <- testing
   }
-  #return(rmse_vals)
+  return(rmse_vals)
 }
-#We don't have the testing y values here
+##$splitdat[[1]]$Testing[[1]]$Y
