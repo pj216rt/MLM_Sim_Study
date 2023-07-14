@@ -8,7 +8,15 @@ I want to put into writing where we stand right now  We have a file that can
 generate data and account for varrying sample sizes, correlations, and
 standard errors.  We can also control how many datasets are generated for each
 combination of those 3.  We have STAN files for (almost) every prior.  We have
-an R file that can in parallel perform a grid search 
+an R file that can in parallel perform a grid search across a host of
+prior/data conditions.  We also have a Data Analysis file that can determine
+for each condition, the percentage of the time that a given level 2 variable
+is selected.  Also in that data analysis file, we can find the PRMSE value.
+Admittedly, this is not the neatest code, but I am working on cleaning that
+up. 
+
+My next task is to find out how to send a file that we can tell the HPC to
+actually run a code that we upload. 
 
 7/13/2023
 Today I focused on getting R code to run on the HPC.  The issue seems to be
