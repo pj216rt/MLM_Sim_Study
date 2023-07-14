@@ -334,26 +334,26 @@ stan_data_loop <- function(training_datasets, testing_datasets){
 }
 
 #big function for scaling, splitting, and construction
-ready_dat <- function(sim_dat){
-  #Scaling
-  temp <- scale_cont_data(sim_dat)
-  
-  #Splitting
-  split.sim1 <- list()
-  for(i in seq_along(temp)){
-    temp1 <- temp[[i]]
-    temp2 <- tt_split(datasets = temp1, percent_train = 0.80)
-    split.sim1[[i]] <- temp2
-  }
-  #Constructing
-  split.dat <- list()
-  for(i in seq_along(split.sim1)){
-    temp <- split.sim1[[i]]
-    temp <- stan_data_loop(training_datasets = temp$Training, testing_datasets = temp$Testing)
-    split.dat[[i]] <- temp
-  }
-  return(split.dat)
-}
+# ready_dat <- function(sim_dat){
+#   #Scaling
+#   temp <- scale_cont_data(sim_dat)
+#   
+#   #Splitting
+#   split.sim1 <- list()
+#   for(i in seq_along(temp)){
+#     temp1 <- temp[[i]]
+#     temp2 <- tt_split(datasets = temp1, percent_train = 0.80)
+#     split.sim1[[i]] <- temp2
+#   }
+#   #Constructing
+#   split.dat <- list()
+#   for(i in seq_along(split.sim1)){
+#     temp <- split.sim1[[i]]
+#     temp <- stan_data_loop(training_datasets = temp$Training, testing_datasets = temp$Testing)
+#     split.dat[[i]] <- temp
+#   }
+#   return(split.dat)
+# }
 
 #Trying to see if we can simply return a list with both the split and the stan data
 
@@ -405,22 +405,23 @@ simulate_study <- function(pos, cond){
   
   #If Else stuff to select the correct dataset from the generated sets
   if(conditione==1){ #If we are looking at condition 1, we want to use the the out dataset
-    dataset <- out
+    #and use the portion of the list for the standata
+    dataset <- out$standat
   }
   else if(conditione==2){
-    dataset <- out1
+    dataset <- out1$standat
   }
   else if(conditione==3){
-    dataset <- out2
+    dataset <- out2$standat
   }
   else if(conditione==4){
-    dataset <- out3
+    dataset <- out3$standat
   }
   else if(conditione==5){
-    dataset <- out4
+    dataset <- out4$standat
   }
   else if(conditione==6){
-    dataset <- out5
+    dataset <- out5$standat
   }
   
   print(dataset)
