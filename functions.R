@@ -631,3 +631,5 @@ rmse_unlist <- function(rmse_list){
   }
   return(out)
 }
+
+#Turn list of RMSE values into df for ANOVA/pairwise analysis

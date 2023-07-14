@@ -6,7 +6,7 @@ set.seed(12345)
 #Generating data for the study
 #Conditions to simulate
 
-num_datasets <- 1
+num_datasets <- 20
 sample_size <- c(50, 100)
 corr_sizes <- c(0.0)
 stand_error <- c(5)
