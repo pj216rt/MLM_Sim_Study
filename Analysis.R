@@ -33,6 +33,8 @@ named_list <- setNames(lapply(ah4, setNames, inner_names), outer_names)
 #Saving output of simulation to enviroment
 saveRDS(named_list, file = "small simulation results")
 
+#Extract condition 1:
+cond1_subset <- named_list[grepl("condition:1", names(named_list))]
 
 #Plotting probability of inclusion.
 p <- ggplot(df, aes(x=X1, y=value, color = X2)) + geom_point() +
