@@ -23,7 +23,7 @@ ah4 <- lapply(ah3, percent_in_ex)
 #Naming lists.  Outer list
 outer_names <- apply(sim_conditions, MARGIN = 1, function(x) paste0(x[1], " condition:", x[2]))
 #Naming inner list
-inner_names <- apply(conditions, MARGIN = 1, function(x) paste0("n= ", x[1], " p= ", x[2], " SE= ", x[3]))
+inner_names <- apply(conditions, MARGIN = 1, function(x) paste0(" n=", x[1], " p=", x[2], " SE=", x[3]))
 
 #setnames, then lapply(nested list, call setNames, call the inner names), then finally outer names
 named_list <- setNames(lapply(ah4, setNames, inner_names), outer_names)
@@ -32,20 +32,31 @@ named_list <- setNames(lapply(ah4, setNames, inner_names), outer_names)
 #Saving output of simulation to enviroment
 saveRDS(named_list, file = "small simulation results")
 
-#Extract condition 1:
-cond1_subset <- named_list[grepl("condition:1", names(named_list))]
 
-#turn this nested list into df
-cond1_df <- do.call(rbind, lapply(cond1_subset, data.frame))
-cond1_df
-colnames(cond1_df)
-
-check1 <- cond1_df %>% separate()
-
-
-library(jsonlite)
 library(purrr)
 library(data.table)
+library(stringr)
+library(reshape2)
+#Extract condition 1:
+cond1_subset <- named_list[grepl("condition:1", names(named_list))]
+cond1_subset
+
+do1 <- unlist(cond1_subset, recursive = FALSE)
+names(do1)
+do2 <- map_dfr(do1, ~as.data.frame(t(.x)))
+do2$situation <- names(do1)
+do2 <- do2 %>% relocate(situation)
+do3 <- str_split_fixed(do2$situation, " ", 5)
+do3
+do2$prior <- do3[,1]
+do2$condition <- do3[,2]
+do2$n <- do3[,3]
+do2$p <- do3[,4]
+do2$SE <- do3[,5]
+do2 <- subset(do2, select = -(situation))
+do2 <- do2 %>% relocate(prior, condition, n, p, SE)
+
+
 
 
 #Plotting probability of inclusion.
