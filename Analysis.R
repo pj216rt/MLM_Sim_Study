@@ -20,11 +20,10 @@ ah3 <- lapply(ah2, sum_inlc_excl)
 ah4 <- lapply(ah3, percent_in_ex)
 
 
-
 #Naming lists.  Outer list
 outer_names <- apply(sim_conditions, MARGIN = 1, function(x) paste0(x[1], " condition:", x[2]))
 #Naming inner list
-inner_names <- apply(conditions, MARGIN = 1, function(x) paste0("n= ", x[1], "p= ", x[2], "SE= ", x[3]))
+inner_names <- apply(conditions, MARGIN = 1, function(x) paste0("n= ", x[1], " p= ", x[2], " SE= ", x[3]))
 
 #setnames, then lapply(nested list, call setNames, call the inner names), then finally outer names
 named_list <- setNames(lapply(ah4, setNames, inner_names), outer_names)
@@ -35,6 +34,19 @@ saveRDS(named_list, file = "small simulation results")
 
 #Extract condition 1:
 cond1_subset <- named_list[grepl("condition:1", names(named_list))]
+
+#turn this nested list into df
+cond1_df <- do.call(rbind, lapply(cond1_subset, data.frame))
+cond1_df
+colnames(cond1_df)
+
+check1 <- cond1_df %>% separate()
+
+
+library(jsonlite)
+library(purrr)
+library(data.table)
+
 
 #Plotting probability of inclusion.
 p <- ggplot(df, aes(x=X1, y=value, color = X2)) + geom_point() +
